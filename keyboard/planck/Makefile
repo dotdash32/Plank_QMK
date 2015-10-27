@@ -123,9 +123,9 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 # SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 # NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
 BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
-MIDI_ENABLE = YES 		# MIDI controls
-# UNICODE_ENABLE = YES 		# Unicode
-BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
+# MIDI_ENABLE = YES 		# MIDI controls
+UNICODE_ENABLE = YES 		# Unicode support via UC()
+# BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
 
 # Optimize size but this may cause error "relocation truncated to fit"

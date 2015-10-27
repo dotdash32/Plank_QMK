@@ -17,43 +17,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "keymap_common.h"
 
-uint16_t hextokeycode(int hex) {
-    if (hex == 0x0) {
-        return KC_0;
-    } else if (hex < 0xA) {
-        return KC_1 + (hex - 0x1);
-    } else {
-        return KC_A + (hex - 0xA);
-    }
-}
+// uint16_t hextokeycode(int hex) {
+//     if (hex == 0x0) {
+//         return KC_0;
+//     } else if (hex < 0xA) {
+//         return KC_1 + (hex - 0x1);
+//     } else {
+//         return KC_A + (hex - 0xA);
+//     }
+// }
 
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
+// void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
+// {
 
-    if (record->event.pressed) {
-        uint16_t unicode = (opt << 8) | id;
-        register_code(KC_LALT);
+//     if (record->event.pressed) {
+//         uint16_t unicode = (opt << 8) | id;
+//         register_code(KC_LALT);
 
-        register_code(hextokeycode((unicode & 0xF000) >> 12));
-        unregister_code(hextokeycode((unicode & 0xF000) >> 12));
-        register_code(hextokeycode((unicode & 0x0F00) >> 8));
-        unregister_code(hextokeycode((unicode & 0x0F00) >> 8));
-        register_code(hextokeycode((unicode & 0x00F0) >> 4));
-        unregister_code(hextokeycode((unicode & 0x00F0) >> 4));
-        register_code(hextokeycode((unicode & 0x000F)));
-        unregister_code(hextokeycode((unicode & 0x000F)));
+//         register_code(hextokeycode((unicode & 0xF000) >> 12));
+//         unregister_code(hextokeycode((unicode & 0xF000) >> 12));
+//         register_code(hextokeycode((unicode & 0x0F00) >> 8));
+//         unregister_code(hextokeycode((unicode & 0x0F00) >> 8));
+//         register_code(hextokeycode((unicode & 0x00F0) >> 4));
+//         unregister_code(hextokeycode((unicode & 0x00F0) >> 4));
+//         register_code(hextokeycode((unicode & 0x000F)));
+//         unregister_code(hextokeycode((unicode & 0x000F)));
         
-        /* Test 'a' */
-        // register_code(hextokeycode(0x0));
-        // unregister_code(hextokeycode(0x0));
-        // register_code(hextokeycode(0x0));
-        // unregister_code(hextokeycode(0x0));
-        // register_code(hextokeycode(0x6));
-        // unregister_code(hextokeycode(0x6));
-        // register_code(hextokeycode(0x1));
-        // unregister_code(hextokeycode(0x1));
+//         /* Test 'a' */
+//         // register_code(hextokeycode(0x0));
+//         // unregister_code(hextokeycode(0x0));
+//         // register_code(hextokeycode(0x0));
+//         // unregister_code(hextokeycode(0x0));
+//         // register_code(hextokeycode(0x6));
+//         // unregister_code(hextokeycode(0x6));
+//         // register_code(hextokeycode(0x1));
+//         // unregister_code(hextokeycode(0x1));
 
-        unregister_code(KC_LALT);
-    }
-    return;
-}
+//         unregister_code(KC_LALT);
+//     }
+//     return;
+// }

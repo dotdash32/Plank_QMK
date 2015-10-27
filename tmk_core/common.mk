@@ -49,11 +49,6 @@ ifdef NKRO_ENABLE
     OPT_DEFS += -DNKRO_ENABLE
 endif
 
-ifdef MIDI_ENABLE
-    OPT_DEFS += -DMIDI_ENABLE
-endif
-
-
 ifdef USB_6KRO_ENABLE
     OPT_DEFS += -DUSB_6KRO_ENABLE
 endif
@@ -67,10 +62,6 @@ endif
 ifdef BACKLIGHT_ENABLE
     SRC += $(COMMON_DIR)/backlight.c
     OPT_DEFS += -DBACKLIGHT_ENABLE
-endif
-
-ifdef BLUETOOTH_ENABLE
-    OPT_DEFS += -DBLUETOOTH_ENABLE
 endif
 
 ifdef KEYMAP_SECTION_ENABLE

@@ -48,9 +48,11 @@ typedef union {
 keymap_config_t keymap_config;
 #endif
 
+// 32 bit keycodes!!
+typedef uint32_t KEYCODE_TYPE;
 
 /* translates key to keycode */
-uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key);
+KEYCODE_TYPE keymap_key_to_keycode(uint8_t layer, keypos_t key);
 
 /* translates Fn keycode to action */
 action_t keymap_fn_to_action(uint16_t keycode);
@@ -58,7 +60,7 @@ action_t keymap_fn_to_action(uint16_t keycode);
 /* translates Fn keycode to action */
 action_t keymap_func_to_action(uint16_t keycode);
 
-extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
+extern const KEYCODE_TYPE keymaps[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t fn_actions[];
 
 // Ability to use mods in layouts
@@ -175,9 +177,7 @@ extern const uint16_t fn_actions[];
 #define MIDI(n) (n | 0x6000)
 
 // For sending unicode codes.
-// You may not send codes over 1FFF -- this supports most of UTF8.
-// To have a key that sends out Œ, go UC(0x0152)
-#define UNICODE(n) (n | 0x8000)
+#define UNICODE(n) (n | 0x80000000)
 #define UC(n) UNICODE(n)
 
 

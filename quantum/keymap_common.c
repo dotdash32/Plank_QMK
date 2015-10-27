@@ -27,11 +27,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static action_t keycode_to_action(uint16_t keycode);
 
+#ifdef UNICODE_ENABLE
+uint16_t hextokeycode(int hex) {
+    if (hex == 0x0) {
+        return KC_0;
+    } else if (hex < 0xA) {
+        return KC_1 + (hex - 0x1);
+    } else {
+        return KC_A + (hex - 0xA);
+    }
+}
+#endif
+
 /* converts key to action */
-action_t action_for_key(uint8_t layer, keypos_t key)
+action_t action_for_key(keyrecord_t *record, uint8_t layer, keypos_t key)
 {
-	// 16bit keycodes - important
-    uint16_t keycode = keymap_key_to_keycode(layer, key);
+    KEYCODE_TYPE keycode = keymap_key_to_keycode(layer, key);
 
     if (keycode >= 0x0100 && keycode < 0x2000) {
     	// Has a modifier
@@ -49,7 +60,7 @@ action_t action_for_key(uint8_t layer, keypos_t key)
     	action.code = ACTION_MACRO(keycode & 0xFF);
     	return action;
 #ifdef BACKLIGHT_ENABLE
-	} else if (keycode >= BL_0 & keycode <= BL_15) {
+	} else if (keycode >= BL_0 && keycode <= BL_15) {
         action_t action;
         action.code = ACTION_BACKLIGHT_LEVEL(keycode & 0x000F);
         return action;
@@ -71,13 +82,14 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         return action;
 #endif
     } else if (keycode == RESET) { // RESET is 0x5000, which is why this is here
+        clear_keyboard();
         bootloader_jump();
-        return;
+        return keycode_to_action(ACTION_NO);
     } else if (keycode == DEBUG) { // DEBUG is 0x5001
       // TODO: Does this actually work?
         print("\nDEBUG: enabled.\n");
         debug_enable = true;
-        return;
+        return keycode_to_action(ACTION_NO);
     } else if (keycode >= 0x5000 && keycode < 0x6000) { 
         // Layer movement shortcuts
         // See .h to see constraints/usage
@@ -109,11 +121,40 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         return action;
 #endif
 #ifdef UNICODE_ENABLE
-    } else if (keycode >= 0x8000) {
-        action_t action;
-        uint16_t unicode = keycode & ~(0x8000);
-        action.code =  ACTION_FUNCTION_OPT(unicode & 0xFF, (unicode & 0xFF00) >> 8);
-        return action;
+    } else if (keycode >= 0x8000 && record != NULL) {
+        if (record->event.pressed) {
+            uint32_t unicode = (keycode & 0xFFFFFFF);
+            // register_code(KC_LALT);
+
+            register_code(hextokeycode((unicode & 0xF000000) >> 24));
+            unregister_code(hextokeycode((unicode & 0xF000000) >> 24));
+            register_code(hextokeycode((unicode & 0xF00000) >> 20));
+            unregister_code(hextokeycode((unicode & 0xF00000) >> 20));
+            register_code(hextokeycode((unicode & 0xF0000) >> 16));
+            unregister_code(hextokeycode((unicode & 0xF0000) >> 16));
+            register_code(hextokeycode((unicode & 0xF000) >> 12));
+            unregister_code(hextokeycode((unicode & 0xF000) >> 12));
+            register_code(hextokeycode((unicode & 0xF00) >> 8));
+            unregister_code(hextokeycode((unicode & 0xF00) >> 8));
+            register_code(hextokeycode((unicode & 0xF0) >> 4));
+            unregister_code(hextokeycode((unicode & 0xF0) >> 4));
+            register_code(hextokeycode((unicode & 0xF)));
+            unregister_code(hextokeycode((unicode & 0xF)));
+            
+            /* Test 'a' */
+            // register_code(hextokeycode(0x0));
+            // unregister_code(hextokeycode(0x0));
+            // register_code(hextokeycode(0x0));
+            // unregister_code(hextokeycode(0x0));
+            // register_code(hextokeycode(0x6));
+            // unregister_code(hextokeycode(0x6));
+            // register_code(hextokeycode(0x1));
+            // unregister_code(hextokeycode(0x1));
+
+            // unregister_code(KC_LALT);
+            // send_keyboard_report();
+        }
+        return keycode_to_action(ACTION_NO);
 #endif
     } else {
 
@@ -236,10 +277,10 @@ static action_t keycode_to_action(uint16_t keycode)
 
 
 /* translates key to keycode */
-uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
+KEYCODE_TYPE keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
-	// Read entire word (16bits)
-    return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
+	// Read entire word (16bits? hopefully 32)
+    return (pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]) | (pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]-1) << 16));
 }
 
 /* translates Fn keycode to action */

@@ -62,7 +62,7 @@ void process_action(keyrecord_t *record)
 
     if (IS_NOEVENT(event)) { return; }
 
-    action_t action = layer_switch_get_action(event.key);
+    action_t action = layer_switch_get_action(record, event.key);
     dprint("ACTION: "); debug_action(action);
 #ifndef NO_ACTION_LAYER
     dprint(" layer_state: "); layer_debug();
@@ -511,7 +511,7 @@ void clear_keyboard_but_mods(void)
 
 bool is_tap_key(keypos_t key)
 {
-    action_t action = layer_switch_get_action(key);
+    action_t action = layer_switch_get_action(NULL, key);
 
     switch (action.kind.id) {
         case ACT_LMODS_TAP:

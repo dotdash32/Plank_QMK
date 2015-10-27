@@ -11,10 +11,17 @@ endif
 ifdef MIDI_ENABLE
 	SRC += $(QUANTUM_DIR)/keymap_midi.c \
 		   $(QUANTUM_DIR)/beeps.c
+
+    OPT_DEFS += -DMIDI_ENABLE
 endif
 
 ifdef UNICODE_ENABLE
 	SRC += $(QUANTUM_DIR)/keymap_unicode.c
+    OPT_DEFS += -DUNICODE_ENABLE
+endif
+
+ifdef BLUETOOTH_ENABLE
+    OPT_DEFS += -DBLUETOOTH_ENABLE
 endif
 
 # Optimize size but this may cause error "relocation truncated to fit"
