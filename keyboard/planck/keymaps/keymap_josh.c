@@ -16,20 +16,20 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QW] = { /* Qwerty */
   {KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-  {KC_LCTL,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
+  {KC_RCTL,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, FUNC(3)},
-  {KC_LCTL,  KC_LGUI, FUNC(4), KC_LALT, KC_LSFT, FUNC(1), FUNC(1)  FUNC(2), MO(_FN), KC_HOME, KC_END,  KC_ESC }
+  {KC_RCTL,  KC_RGUI, FUNC(4), KC_RALT, KC_LSFT, FUNC(1), FUNC(1),  FUNC(2), MO(_FN), KC_HOME, KC_END, KC_ESC }
 },
-[_FN] = { /* Function TODO */
-  {KC_GRV,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_UP,   KC_PGDN, KC_BSLS KC_BSPC },
+[_FN] = { /* Function */
+  {KC_GRV,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_UP,   KC_PGDN, KC_BSLS, KC_BSPC },
   {KC_CAPS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_QUOT, KC_ENT },
   {KC_TRNS, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, KC_TRNS, KC_LBRC, KC_RBRC, KC_TRNS, KC_TRNS, KC_APP, KC_RSFT },
   {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET,   KC_TRNS, KC_TRNS}
 },
-[_NM] = { /* NUMBERS TODO */
-  {KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_Fl0,  KC_BSPC},
+[_NM] = { /* NUMBERS */
+  {KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_BSPC},
   {KC_TRNS, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS},
-  {KC_TRNS, KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS, KC_F12,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
+  {KC_TRNS, KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS, KC_F12,  KC_TRNS, KC_TRNS, KC_MNS,  KC_EQL,  KC_TRNS},
   {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
 },
 [_NL] = { /* Numpad layer */
@@ -49,10 +49,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM fn_actions[] = {
    [1] = ACTION_LAYER_TAP_KEY(_NM, KC_BSPC),
    [2] = ACTION_LAYER_TAP_KEY(_FN, KC_SPC),
-   [3] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ENT)
+   [3] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ENT),
    
    [4] = ACTION_LAYER_TOGGLE(_NL),
-   [5] = ACTION_LAYER_MOMENTARY(5)
+   [5] = ACTION_LAYER_TAP(ACTION_LAYER_TAP_KEY(5, KC_BSPC)
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
@@ -62,10 +62,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 0:
           if (record->event.pressed) {
             register_code(KC_RSFT);
-            backlight_step();
           } else {
             unregister_code(KC_RSFT);
           }
         break;
       }
     return MACRO_NONE;
+}
+        
+        
+        
