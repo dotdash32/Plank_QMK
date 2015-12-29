@@ -1,15 +1,13 @@
-GH60 keyboard firmware
+z47 keyboard firmware
 ======================
-DIY compact keyboard designed and run by komar007 and Geekhack community.
+DIY compact keyboard designed and run by Ziptyze and Dotdash.
 
-- Both Rev.A and Rev.B PCB are supported by one firmware binary(issue #64)
 
-## GH60 Resources
-- [KOMAR's project page](http://blog.komar.be/projects/gh60-programmable-keyboard/)
-- [Prototyping](http://geekhack.org/index.php?topic=34959.0)
-- [Rev.A PCB test](http://geekhack.org/index.php?topic=37570.0)
-- [Rev.B PCB test](http://geekhack.org/index.php?topic=50685.0)
-- [Group buy](http://geekhack.org/index.php?topic=41464.0)
+## z47 Resources
+- [ZCases](http://1upkeyboards.com/index.php?cPath=35)
+- [Prototyping](https://www.reddit.com/r/MechanicalKeyboards/comments/3vqp19/introducing_the_z47_a_new_compact_form_factor_and/)
+- [First Test Photos](Coming soon!)
+
 
 
 ## Build
