@@ -1,0 +1,6 @@
+define reset
+SIGNAL SIGHUP
+end
+file ergodox_ez.elf
+target remote localhost:4242
+break main
