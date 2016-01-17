@@ -12,13 +12,13 @@ DIY compact keyboard designed and run by Ziptyze and Dotdash.
 
 ## Build
 
-# Resources
+### Resources
  - [Teensy Loader](http://pjrc.com/teensy/loader.html)
  - A compiler installed. [WinAVR for Windows sometimes works](http://sourceforge.net/projects/winavr/) or running `make` on Mac will autoinstall the drivers.
  - Finger/tool to push the reset button
  
  
-# Compiling
+### Compiling
 
 Move to this directory using cd <path>
 Then just run `make` like:
