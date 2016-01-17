@@ -31,6 +31,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 13
 
+/* COL2ROW or ROW2COL
+ * It's COL2ROW on the prototype
+ */
+#define DIODE_DIRECTION ROW2COL
+
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
