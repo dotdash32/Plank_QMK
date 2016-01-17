@@ -6,7 +6,7 @@ DIY compact keyboard designed and run by Ziptyze and Dotdash.
 ## z47 Resources
 - [ZCases](http://1upkeyboards.com/index.php?cPath=35)
 - [Prototyping](https://www.reddit.com/r/MechanicalKeyboards/comments/3vqp19/introducing_the_z47_a_new_compact_form_factor_and/)
-- [First Test Photos](Coming soon!)
+- [First Test Photos](http://imgur.com/a/LPk01)
 
 
 
