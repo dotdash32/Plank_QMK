@@ -232,7 +232,7 @@ static void  init_cols(void)
 
 static matrix_row_t read_cols(uint8_t row)
 {
-    if (row < 7) {
+    if (row < 4) {
         if (mcp23018_status) { // if there was an error
             return 0;
         } else {
@@ -270,6 +270,7 @@ static matrix_row_t read_cols(uint8_t row)
  *
  * Teensy
  * row: 7   8   9   10  11  12  13
+ *Rrow: 4   5   6   7
  * pin: B3  B7  C6  D2 [C7  B1  B0](false)
  *
  * MCP23018
@@ -304,7 +305,7 @@ static void unselect_rows(void)
 
 static void select_row(uint8_t row)
 {
-    if (row < 7) {
+    if (row < 4) {
         // select on mcp23018
         if (mcp23018_status) { // if there was an error
             // do nothing
@@ -323,22 +324,23 @@ static void select_row(uint8_t row)
         // select on teensy
         // Output low(DDR:1, PORT:0) to select
         switch (row) {
-            case 7:
+            case 4:
                 DDRB  |= (1<<3);
                 PORTB &= ~(1<<3);
                 break;
-            case 8:
+            case 5:
                 DDRB  |= (1<<7);
                 PORTB &= ~(1<<7);
                 break;
-            case 9:
+            case 6:
                 DDRC  |= (1<<6);
                 PORTC &= ~(1<<6);
                 break;
-            case 10:
+            case 7:
                 DDRD  |= (1<<2);
                 PORTD &= ~(1<<2);
                 break;
+          /*
             case 11:
                 DDRC  |= (1<<7);
                 PORTC &= ~(1<<7);
@@ -351,6 +353,7 @@ static void select_row(uint8_t row)
                 DDRB  |= (1<<0);
                 PORTB &= ~(1<<0);
                 break;
+			*/
         }
     }
 }
